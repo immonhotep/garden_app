@@ -157,10 +157,20 @@ INSTALL:
 
 
 
+
+
+
+
+
   Example sample picture from home page
 
 
-  ![sample home](https://github.com/user-attachments/assets/15ea9310-1966-4214-a914-b464a6c4ec4e)
+  ![sample_home](https://github.com/user-attachments/assets/e4261fd2-5c69-46c5-b1ac-3890ebf82d68)
+  
+
+
+
+  
 
 
 
