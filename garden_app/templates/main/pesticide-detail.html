@@ -1,0 +1,81 @@
+{% extends "main/base.html" %}
+
+
+{% block content %}
+
+<title>{% block title %}{{pesticide}} detail{% endblock title %}</title>
+
+<!-- Page Content -->
+<div class="container py-5">
+    <div class="card mb-4 shadow-custom">
+        <div class="card-body">
+            <!-- Portfolio Item Heading -->
+            <h1 class="my-4">{{pesticide.name}}
+            </h1>
+        
+            <!-- Portfolio Item Row -->
+            <div class="row">
+            <div class="col-md-8">
+                <img class="img-fluid img-random" src="{{pesticide.imageURL}}" alt="">
+            </div>
+        
+            <div class="col-md-4">
+                <h3 class="my-3">Description</h3>
+                <p>{{pesticide.description|safe}}</p>
+                <h6 class="my-3">Manufacturer url:</h6>
+                <a href="{{pesticide.link}}">{{pesticide.link}}</a>
+                <h3 class="my-3">Diseases:</h3>
+                <ul>
+                <div class="avatar-stack">
+                {% for disease in diseases %}
+                    <a href="{% url  'disease_detail' disease.slug %}"> <img class="avatar avatar-xl  rounded-0" src="{{disease.imageURL}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{disease.name}}" ></a>
+                {% endfor %}
+
+                </div>
+             
+                </ul>
+
+                <div class="container py-3">
+                {% if request.user.is_superuser %}
+                    <a class="btn btn-outline-warning" href="{% url 'update_pesticide' pesticide.slug %}"> 
+                        <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                    </a>
+
+                    <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal-{{pesticide.slug}}"> 
+                        <i class="fa fa-ban fa-lg" aria-hidden="true"></i>
+                    </button>
+                    {% include "main/modals.html" %}
+
+                {% endif %}
+                </div>
+
+
+
+                <div class="container py-5"  >
+                    <a class="button-nice" href="javascript:history.back()">back</a>
+                </div>
+           
+            </div>
+            </div>
+
+        
+            <!-- Related Projects Row -->
+            <h3 class="my-4 ">Related items in category: {{pesticide.category}}</h3>
+        
+            <div class="row">
+            {% for pesticide in pesticides|slice:6 %}
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="{% url 'pesticide_detail' pesticide.slug %}">
+                    <img class="img-fluid img-cards" src="{{pesticide.imageURL}}" alt="">
+                    </a>
+            </div>
+            {% endfor %}
+
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+
+{% endblock content %}

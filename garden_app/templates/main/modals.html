@@ -1,0 +1,345 @@
+{% load crispy_forms_tags %}
+
+{% if plant %}
+<div class="modal fade" id="deleteModal-{{plant.slug}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Are you sure you want to delete <b class="badge bg-danger"> {{plant.name}} </b> ? <img src="{{plant.imageURL}}" class="thumbnail" width=200 heigh=200></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action={% url 'delete_plant' plant.slug %}>
+                {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if random_plant %}
+<div class="modal fade" id="deleteModal-{{random_plant.slug}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Are you sure you want to delete <b class="badge bg-danger"> {{ random_plant.name }} </b> ? <img src="{{random_plant.imageURL}}" class="thumbnail" width=200 heigh=200></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action={% url 'delete_plant' random_plant.slug %}>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% if disease %}
+<div class="modal fade" id="deleteModal-{{disease.slug}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Are you sure you want to delete <b class="badge bg-danger"> {{disease.name}} </b> ? <img src="{{disease.imageURL}}" class="thumbnail" width=200 heigh=200></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action={% url 'delete_disease' disease.slug %}>
+                {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if random_disease %}
+<div class="modal fade" id="deleteModal-{{random_disease.slug}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Are you sure you want to delete <b class="badge bg-danger"> {{ random_disease.name }} </b> ? <img src="{{random_disease.imageURL}}" class="thumbnail" width=200 heigh=200></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action={% url 'delete_disease' random_disease.slug %}>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+
+{% if pesticide %}
+<div class="modal fade" id="deleteModal-{{pesticide.slug}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Are you sure you want to delete <b class="badge bg-danger"> {{pesticide.name}} </b> ? <img src="{{pesticide.imageURL}}" class="thumbnail" width=200 heigh=200> </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action={% url 'delete_pesticide' pesticide.slug %}>
+                {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if random_pesticide %}
+<div class="modal fade" id="deleteModal-{{random_pesticide.slug}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Are you sure you want to delete <b class="badge bg-danger"> {{random_pesticide.name }} </b> ? </br><img src="{{random_pesticide.imageURL}}" class="thumbnail" width=200 heigh=200> </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action={% url 'delete_pesticide' random_pesticide.slug %}>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if schedule %}
+
+<div class="modal fade" id="deleteModal-{{schedule.pk}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Are you sure you want to delete <b class="badge bg-danger">{{schedule.date }}  </b> ? </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action={% url 'delete_protection' schedule.pk %}>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endif %}
+
+
+{% if diary  %}
+<div class="modal fade" id="deleteModal-{{diary.pk}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Are you sure you want to delete <b class="badge bg-danger">{{diary.sowing }}  </b> ? </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action={% url 'delete_diary' diary.pk %}>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if comment %}
+<div class="modal fade" id="deleteModal-{{comment.pk}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Are you sure you want to delete ? <b class="badge bg-danger">{{comment.post|safe}}</b></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action={% url 'delete_post' comment.pk %}>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="statusModal-{{comment.pk}}" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header {% if comment.enabled %} bg-danger {% else %} bg-success {% endif %} text-white">
+                {% if comment.enabled %}
+                <h5 class="modal-title" id="deleteModalLabel">Confirm hide</h5>
+                {% else %}
+                 <h5 class="modal-title" id="deleteModalLabel">Confirm unhide</h5>
+                {% endif %}
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            {% if comment.enabled %}
+                <p class="mb-0">Are you sure you want to hide ? <b class="badge bg-danger">{{comment.post|safe}}</b></p>
+            {% else %}
+                <p class="mb-0">Are you sure you want to unhide ? <b class="badge bg-success">{{comment.post|safe}}</b></p>
+            {% endif %} 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action={% url 'comment_status' comment.pk %}>
+                    {% csrf_token %}
+                    {% if comment.enabled %}
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">Hide</button>
+                    {% else %}
+                    <button type="submit" class="btn btn-success" id="confirmDelete">Unhide</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+{% if reply %}
+<div class="modal fade" id="deleteModal-{{reply.pk}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Are you sure you want to delete ? <b class="badge bg-danger">{{reply.post|safe}}</b></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action={% url 'delete_reply' reply.pk %}>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="statusModal-{{reply.pk}}" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header {% if reply.enabled %} bg-danger {% else %} bg-success {% endif %} text-white">
+                {% if reply.enabled %}
+                <h5 class="modal-title" id="deleteModalLabel">Confirm hide</h5>
+                {% else %}
+                 <h5 class="modal-title" id="deleteModalLabel">Confirm unhide</h5>
+                {% endif %}
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            {% if reply.enabled %}
+                <p class="mb-0">Are you sure you want to hide ? <b class="badge bg-danger">{{reply.reply|safe}}</b></p>
+            {% else %}
+                <p class="mb-0">Are you sure you want to unhide ? <b class="badge bg-success">{{reply.reply|safe}}</b></p>
+            {% endif %} 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action={% url 'reply_status' reply.pk %}>
+                    {% csrf_token %}
+                    {% if reply.enabled %}
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">hide</button>
+                    {% else %}
+                    <button type="submit" class="btn btn-success" id="confirmDelete">unhide</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if user and request.user.is_authenticated %}
+<div class="modal fade" id="statusModal-{{user.pk}}" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header {% if user.is_active %} bg-danger {% else %} bg-success {% endif %} text-white">
+                {% if user.is_active %}
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Disable</h5>
+                {% else %}
+                 <h5 class="modal-title" id="deleteModalLabel">Confirm Enable</h5>
+                {% endif %}
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            {% if user.is_active%}
+                <p class="mb-0">Are you sure you want to disable ? <b class="badge bg-danger">{{user.username}}</b></p>
+            {% else %}
+                <p class="mb-0">Are you sure you want to enable ? <b class="badge bg-success">{{user.username}}</b></p>
+            {% endif %} 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action={% url 'user_status' user.pk %}>
+                    {% csrf_token %}
+                    {% if user.is_active %}
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">Disable</button>
+                    {% else %}
+                    <button type="submit" class="btn btn-success" id="confirmDelete">Enable</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+
+

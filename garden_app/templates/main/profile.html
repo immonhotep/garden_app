@@ -1,0 +1,23 @@
+{% extends "main/base.html" %}
+{% block content %}
+<div class="container  text-dark text-muted">
+    <hr>
+    <div class="card shadow-custom">
+        <div class="card-body">
+            <div class="wrap clearfix">
+                <div class="col-sm-4 col-xs-12">
+                    <img src="{{profile.imageURL}}" class="img-thumbnail avatar avatar-xl" />
+                </div>
+                <div class="col-sm-8 col-xs-12">
+                    <div class="icons col-xs-12">
+                        <a href="#" class="btn btn-outline-light my-3"><span class="text-primary"><i class="fa-solid fa-envelope"></i> {{profile.user.email}}</span></a>
+                    </div>
+                    <div class="col-xs-12 content">
+                        <h2>{{profile.user.username}}</h2>                       
+                        <p>{{profile.bio |safe}}</p>                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

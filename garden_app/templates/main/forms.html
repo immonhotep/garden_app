@@ -1,0 +1,28 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+ <title>{% block title %}{{header}}{% endblock title %}</title>
+<div class="content">
+  <div class="main p-3 pt-4">
+    <div class="container">
+      <div class="col-xl-12 col-xl-10 col-xl-8">
+        <div class="card row shadow-custom p-3 mb-5 bg-white rounded">
+          <div class="card-header">
+            <h4 class="mr-auto mb-0 pr-3">{{header}}</h4>
+          </div>
+          <div class="card-body">
+            <form method="POST" enctype="multipart/form-data" >
+            {% csrf_token %}
+            {% crispy form %} 
+          
+       
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

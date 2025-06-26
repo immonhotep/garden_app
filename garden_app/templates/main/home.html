@@ -1,0 +1,135 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+
+        <div class="container">
+             <title>{% block title %}Home{% endblock title %}</title>
+            <div class="row">
+                <!-- Blog entries-->
+                <div class="col-lg-8">
+                    <!-- Featured blog post-->
+                    {% if random_plant %}
+                    <div class="card mb-4">
+                        <div class="py-2 my-2 bg-light"  style="width:100%; text-align:center">
+                            <a href="#!"><img class="card-img-top img-random my-3 shadow-custom-random border border-2 border-dark" src="{{random_plant.imageURL}}" ></a>
+                        </div>
+                        <div class="card-body">
+                           
+                            <h2 class="card-title">{{random_plant.name}}</h2>
+                            <h6 class="text-muted py-1">Category: {{random_plant.category}}</h6>
+                            <p class="card-text">{{random_plant.description|truncatechars:300|safe}}</p>
+                            <a class="button-nice2 " href="{% url 'plant_detail' random_plant.slug  %}">Read more →</a>
+                            {% if request.user.is_superuser %}
+                                    <a class="btn btn-outline-warning" href="{% url 'update_plant' random_plant.slug %}"> 
+                                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                    </a>
+
+                                    <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal-{{random_plant.slug}}"> 
+                                        <i class="fa fa-ban fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    {% include "main/modals.html" %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                        
+                            <div class="row row-cols-1 row-cols-md-3 g-4 mx-1 mb-5">
+                                {% for plant in plants %}
+                                <div class="card" style="max-width: 400px;">
+                                <img src="{{plant.imageURL}}" class="card-img-top thumbnail img-cards" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{plant.name}}</h5>
+                                    <h6 class="text-muted py-1">Category: {{plant.category}}</h6>
+                                    <p class="card-text">{{plant.description|truncatechars:80|safe}}</p>
+                                    <hr>
+                                    <a class="button-nice2 mx-1 " href="{% url 'plant_detail' plant.slug %}">Read more →</a>
+                                    {% if request.user.is_superuser %}
+                                    <a class="btn btn-outline-warning" href="{% url 'update_plant' plant.slug %}"> 
+                                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                    </a>
+
+                                    <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal-{{plant.slug}}"> 
+                                    <i class="fa fa-ban fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    {% include "main/modals.html" %}
+                                    {% endif %}
+
+                                </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+
+                {% if plants.has_other_pages %}
+                    <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center my-4">
+                        {% if plants.has_previous %}
+                        <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{plants.previous_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">Previous</a></li>
+                        {% endif%}
+
+                        {% for num  in plants.paginator.page_range %}
+                            {% if plants.number == num %}
+                            <li class="page-item"><a class="page-link  mx-1 paginator-text"   href="">{{num}}</a></li>
+                            {% else %}
+                            <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{ num }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">{{num}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if plants.has_next %}
+                        <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{plants.next_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">Next</a></li>
+                        {% endif %}                            
+                    </ul>
+                    </nav>            
+                {% endif %}
+
+
+                </div> 
+                <!-- Side widgets-->
+                             <div class="col-lg-4">
+                    <!-- Search widget-->
+                    <form method="GET" action="{% url 'search_plant' %}" >
+                    <div class="card mb-4">
+                        <div class="card-header">Search</div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                
+                                <input class="form-control" name="search" type="search" placeholder="Search for plants..." />
+                                <button class="btn btn-primary" type="submit">Go!</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Categories</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="{% url 'schedule_protection' %}" class="btn btn-success btn-sm my-1 mx-1"><i class="fa-solid fa-shield fa-2xs"></i> Protection scheduler </a></li>
+                                        <li><a href="{% url 'create_diary' %}" class="btn btn-success btn-sm my-1 mx-1"><i class="fa-solid fa-note-sticky fa-2xs"></i> Create diary</a></li>
+                                        <li><a href="{% url 'forum' %}" class="btn btn-success btn-sm my-1 mx-1"><i class="fa-solid fa-comments fa-2xs"></i> Forum</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="{% url 'list_protection_schedules' %}" class="btn btn-success btn-sm my-1 mx-1"><i class="fa-solid fa-list-ol fa-2xs"></i> List protections</a></li>
+                                        <li><a href="{% url 'list_diaries' %}" class="btn btn-success btn-sm my-1 mx-1"><i class="fa-solid fa-list-check"></i> List diaries</a></li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 
+                </div>
+
+
+
+
+                
+            </div>
+        </div>
+
+
+{% endblock content %}

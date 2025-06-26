@@ -1,0 +1,121 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+
+<title>{% block title %}About{% endblock title %}</title>
+
+<section class="py-3 py-5 my-5 text-white shadow-custom">
+  <div class="container">
+    <div class="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center">
+      <div class="col-12 col-lg-6 col-xl-5">
+        <img class="img-fluid rounded" loading="lazy" src="{{about_content.imageURL}}" height=300 width=300>
+      </div>
+      <div class="col-12 col-lg-6 col-xl-7">
+        <div class="row justify-content-xl-center">
+          <div class="col-12 col-xl-11">
+            <!--title1-->
+            <h2 class="mb-5">{{about_content.title1}}</h2>
+            <!--subtitle1-->
+            <p class="mb-5 mt-5">{{about_content.subtitle1 |safe}}</p>
+            <div class="row gy-4 gy-md-0 gx-xxl-5X">
+              <div class="col-12 col-md-6">
+                <div class="d-flex">
+                  <div class="me-4 mt-3 text-warning">
+        
+                    <i class="{{about_content.icon1}} fa-2xl"></i>
+                  </div>
+                  <div>
+                  <!--title2-->
+                    <h2 class="h4 mb-3 mt-3">{{about_content.title2}}</h2>
+                    <!--subtitle2-->
+                    <p class="text-warning mb-0">{{about_content.subtitle2|safe}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="d-flex">
+                  <div class="me-4 mt-3 text-warning">
+                  <i class="{{about_content.icon2}} fa-2xl"></i>
+                
+                  </div>
+                  <div>
+                  <!--title3-->
+                    <h2 class="h4 mb-3 mt-3">{{about_content.title3}}</h2>
+                    <!--subtitle3-->
+                    <p class="text-warning mb-0">{{about_content.subtitle3|safe}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!--<div class="container py-3 text-white shadow-custom">-->
+<section class="py-3 py-5 my-5 text-white shadow-custom">
+<div class="container py-3 text-white">
+
+<h3 class="text-start py-3">Contact US <i class="fa-solid fa-envelope-open-text"></i></h3>
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <form  method="POST" action="{% url 'contact_message' %}">
+        {% csrf_token %}
+        <div class="messages"></div>
+        <div class="controls">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="form_name">Firstname *</label>
+                <input maxlength=100 type="text" name="first_name" class="form-control" placeholder="Please enter your firstname *" required="required" data-error="Firstname is required.">
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="form_lastname">Lastname *</label>
+                <input maxlength=100 type="text" name="last_name" class="form-control" placeholder="Please enter your lastname *" required="required" data-error="Lastname is required.">
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="form_email">Email *</label>
+                <input maxlength=100 type="email" name="email" class="form-control" placeholder="Please enter your email *" required="required" data-error="Valid email is required.">
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="form_phone">Phone</label>
+                <input maxlength=20 type="tel" name="phone" class="form-control" placeholder="Please enter your phone">
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="form_message">Message *</label>
+                <textarea maxlength=3000 name="message" class="form-control" placeholder="Message for us *" rows="4" required></textarea>
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+            <div class="col-md-12 py-2">
+              <input type="submit" class="btn  button-nice2" value="Send message">
+            </div>
+          </div>        
+        </div>
+        </form>   
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock content %}

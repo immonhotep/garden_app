@@ -1,0 +1,206 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<section class="gradient-custom">
+  <div class="container my-5 py-5">
+    <div class="row d-flex justify-content-center py-2">
+      <div class="col-md-12 col-lg-10 col-xl-8">
+        <div class="card shadow-custom">
+          <div class="card-body">
+          </div>
+          <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+          <h4 class="text-center mb-4 pb-2">Send comment</h4>
+            <div class="d-flex flex-start w-100">
+            {% if request.user.is_authenticated%}
+              <a href="{% url 'profile' request.user.userprofile.pk %}"><img class="rounded-circle shadow-1-strong me-3"
+                src="{{request.user.userprofile.imageURL}}" alt="avatar" width="40"
+                height="40" /></a>
+            {% endif %}
+              <form method="POST" action="">
+              {% csrf_token %}
+              <div class="form-outline w-100">
+              {{form|crispy}}
+              {{form.media}}         
+              </div>
+            </div>
+            <div class="float-end mt-2 pt-1">
+              <button  type="submit" class="button-nice2">Post comment</button>
+              <a id="user-link" class="button-nice2" href="javascript:history.back()">back</a>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xl-8">
+        <div class="card shadow-custom">
+          <div class="card-body p-4">
+            <h4 class="text-center mb-4 pb-2">Forum comments</h4>
+            {% for comment in comments%}
+            <div class="row mb-5">
+              <div class="col">
+                <div class="d-flex flex-start">
+                  <a href="{% url 'profile' comment.author.userprofile.pk %}"><img class="rounded-circle shadow-1-strong me-3"
+                    src="{{comment.author.userprofile.imageURL}}" alt="avatar" width="65"
+                    height="65" /></a>
+                     
+                  <div class="flex-grow-1 flex-shrink-1">
+                    <div>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <p class="mb-1">
+                          {{comment.author.username}} <span class="small">- {{comment.date}}</span>
+                        </p>
+                        
+                        <div class="d-flex justify-content-end">
+                        {% if request.user == comment.author %}
+                       <a href="{% url 'update_post' comment.pk %}" class="btn btn-outline-primary btn-sm"> <i class="fa fa-wrench " aria-hidden="true"></i></a>
+                  
+                        <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal-{{comment.pk}}"> 
+                          <i class="fa fa-ban " aria-hidden="true"></i>
+                        </button>
+                        {% endif %}
+
+                         {% if request.user.is_superuser %}
+                            {% if comment.enabled %}
+                              <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#statusModal-{{comment.pk}}"> 
+                                <i class="fa-solid fa-eye-slash"></i>
+                              </button>
+                            {% else %}
+                              <button class="btn btn-outline-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#statusModal-{{comment.pk}}"> 
+                                <i class="fa-solid fa-eye"></i>
+                              </button>
+                            {% endif %}
+                          {% endif %}
+                        {% include "main/modals.html" %}
+                        </div>
+                    
+                      </div>
+                      <p class="small mb-0">
+                      {% if comment.enabled %} {{comment.post|safe}} {% else %} <i class="text-danger">Comment hidden by admin</i>{% endif %}</p>
+                       <a href='#' class='send_reply'><i class="fa-solid fa-sort-down my-4"></i> open</a>
+                       <form method="POST" action="{% url 'reply' comment.pk %}" class="send_replies">
+                       {% csrf_token%}
+                       <div class="form-group">
+                        {{reply_form|crispy}}                  
+                        </div>
+                        <div class="float-end mt-2 pt-1">
+                             <button  type="submit" class="button-nice2">Reply</button>
+                        </div>
+                        </form>
+                                    
+                    
+                    </div>
+
+                    <a href='#' class='replies'>replies ({{comment.reply_to.count}})</a>
+                    
+                    <div id="replyDIV" class="got_replies"  >  
+                    {% for reply in comment.reply_to.all %}                 
+                    <div class="d-flex flex-start mt-4">
+                      <a class="me-3" href="#">
+                        <a href="{% url 'profile' reply.author.userprofile.pk %}"><img class="rounded-circle shadow-1-strong"
+                          src="{{reply.author.userprofile.imageURL}}"
+                          width="65" height="65" /></a>
+                      </a>
+                      <div class="flex-grow-1 flex-shrink-1">
+                        <div>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-1">
+                              {{reply.author}} <span class="small">- {{reply.date}}</span>
+                            </p>
+                          
+                            <div class="d-flex justify-content-end">
+                            {% if request.user == reply.author %}
+                            <a href="{% url 'update_reply' reply.pk %}" class="btn btn-outline-primary btn-sm"> <i class="fa fa-wrench " aria-hidden="true"></i></a>
+                      
+                            <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal-{{reply.pk}}"> 
+                              <i class="fa fa-ban " aria-hidden="true"></i>
+                            </button>
+                            {% endif%}
+
+                           {% if request.user.is_superuser %}
+                            {% if reply.enabled %}
+                              <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#statusModal-{{reply.pk}}"> 
+                                <i class="fa-solid fa-eye-slash"></i>
+                              </button>
+                            {% else %}
+                              <button class="btn btn-outline-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#statusModal-{{reply.pk}}"> 
+                                <i class="fa-solid fa-eye"></i>
+                              </button>
+                            {% endif %}
+                          {% endif %}
+                        {% include "main/modals.html" %}
+                        </div>
+                            
+
+
+
+                          </div>
+                          <p class="small mb-0">
+                           {% if reply.enabled %} {{reply.reply|safe}} {% else %} <i class="text-danger">Reply hidden by admin</i>{% endif %}</p>
+                          </p>
+                        </div>
+                      </div>
+                    </div>                 
+                    {% endfor %}
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        {% if comments.has_other_pages %}
+            <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center my-4">
+            {% if comments.has_previous %}
+                <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{comments.previous_page_number }}{% if request.GET.select %}&select={{request.GET.select}}{% endif %}">Previous</a></li>
+            {% endif%}
+
+            {% for num  in comments.paginator.page_range %}
+            {% if comments.number == num %}
+                <li class="page-item"><a class="page-link  mx-1 paginator-text"   href="">{{num}}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{ num }}{% if request.GET.select %}&select={{request.GET.select}}{% endif %}">{{num}}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if comments.has_next %}
+                <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{comments.next_page_number }}{% if request.GET.select %}&select={{request.GET.select}}{% endif %}">Next</a></li>
+            {% endif %}                            
+            </ul>
+            </nav>            
+            {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+$('.replies').click(function(e){
+  e.preventDefault();
+  $(this).next(".got_replies").fadeToggle(); 
+})
+$(".got_replies").fadeToggle();
+
+
+$('.send_reply').click(function(e){
+  e.preventDefault();
+  $(this).next(".send_replies").fadeToggle(); 
+})
+$(".send_replies").fadeToggle();
+
+
+</script>
+
+
+{% endblock content %}
+
+
+

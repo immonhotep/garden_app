@@ -1,0 +1,64 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>{% block title %}{% endblock title %}</title>
+        <!-- boostrap version 5 -->
+            {% load bootstrap5 %}
+            {% bootstrap_css %}
+            {% bootstrap_javascript %}
+
+
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+           
+            <!-- fontawesome version 6.6.0 -->
+            <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+            <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+            <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+            <link href="{% static 'fontawesomefree/css/regular.css' %}" rel="stylesheet" type="text/css"> 
+            <!--Jquery-->
+            <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    
+            <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+           
+
+    </head>
+
+    <body class="bg-style">
+        <!-- Responsive navbar-->
+        {% include "main/navbar.html" %}
+        {% include "main/messages.html" %}
+
+        <!-- Page header with logo and tagline-->
+        <header class="py-5 border-bottom mb-4 header-style">
+            <div class="container">
+                <div class="text-center my-5">
+                    <h1 class="fw-bolder">Welcome to Gardening <i class="fa-solid fa-leaf"></i> </h1>
+                    
+                </div>
+            </div>
+        </header>
+        <!-- Page content-->
+        {% block content %}
+        {% endblock content %}
+        <!-- Footer-->
+        <!--
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white"> &copy; Gardening 2025</p></div>
+        </footer> -->    
+    </body>
+</html>
+
+
+
+    <script>
+            $(document).ready(function(){
+            $('[data-bs-toggle="tooltip"]').tooltip();
+            });
+    </script>

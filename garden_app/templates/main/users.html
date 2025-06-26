@@ -1,0 +1,51 @@
+{% extends "main/base.html" %}
+{% block content  %}
+<div class="container py-4">
+    <ul class="list-group list-group-light">
+    {% for user in users%}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+        <img src="{{user.userprofile.imageURL}}" alt="" style="width: 45px; height: 45px"
+            class="rounded-circle" />
+        <div class="ms-3">
+            <p class="fw-bold mb-1">{{user.username}}</p>
+            <p class="text-muted mb-0">{{user.email}}</p>
+        </div>
+        </div>
+
+
+            <div class="d-flex flex-row-reverse bd-highlight">
+                {% if user.is_active %}
+                <div class="p-2 bd-highlight"><span class="badge rounded-pill bg-success">Enabled</span></div>
+                <div class="p-2 bd-highlight"><button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#statusModal-{{user.pk}}"><i class="fa-solid fa-user-xmark fa-xs"></i></button></div>
+                {% else %}
+                <div class="p-2 bd-highlight"><span class="badge rounded-pill bg-danger">Disabled</span></div>
+                <div class="p-2 bd-highlight"><button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#statusModal-{{user.pk}}"><i class="fa-solid fa-user-check fa-xs"></i></button></div>
+                {% endif %}
+                
+                 {% include "main/modals.html" %}
+            </div>     
+    </li>
+    {% endfor %}
+    </ul>
+    {% if is_paginated %}
+            <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center my-4">
+                {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{page_obj.previous_page_number}}">Previous</a></li>
+                {% endif%}
+                {% for page  in page_obj.paginator.page_range %}
+                <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{page}}">{{page}}</a></li>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{page_obj.next_page_number}}">Next</a></li>
+                {% endif %}
+            </ul>
+            </nav>
+    {% endif %}   
+
+
+
+</div>
+
+{% endblock content  %}

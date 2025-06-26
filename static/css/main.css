@@ -1,0 +1,231 @@
+.bg-style{
+
+    background-color:darkolivegreen
+
+
+}
+
+.header-style{
+
+    background-color: rgb(199, 233, 199);
+    font-family: Haettenschweiler;
+    font-style: italic;
+    color:midnightblue
+
+
+}
+
+
+.auth-class{
+
+    font-family: "Lucida Handwriting";
+    font-style:italic;
+    font-size:larger;
+    
+
+}
+
+.shadow-custom {
+    box-shadow: 0 2px 0px 0 rgba(0, 0, 0, .25), 0 3px 12px 2px rgba(0, 0, 0, 1) !important;
+  }
+  
+.shadow-custom-random {
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, .25), 0 3px 18px 0px rgba(0, 0, 0, 1) !important;
+  }
+
+.alert-custom { 
+    border-color: #e4d7d7;
+    background: #a56210;
+    color:rgb(200, 200, 233) 
+
+}
+
+
+.avatar {
+    --bs-avatar-width: 50px;
+    --bs-avatar-bg: #44546f;
+    position: relative;
+    width: var(--bs-avatar-width);
+    height: var(--bs-avatar-width);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ds-text-inverse);
+    line-height: 1;
+    font-size: 14px;
+    border-radius: 50%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    background-color: var(--bs-avatar-bg);
+  }
+.avatar > img, .avatar > svg {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+.avatar-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  
+.avatar-stack {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+.avatar-stack .avatar {
+    overflow: hidden;
+    margin-left: -8px;
+    border: 2px solid white;
+  }
+.avatar-stack .avatar:last-child > .avatar-stack .avatar {
+    margin-left: 0;
+  }
+  
+.avatar-xs {
+    --bs-avatar-width: 16px;
+  }
+  
+.avatar-sm {
+    --bs-avatar-width: 24px;
+  }
+
+.avatar-md {
+    --bs-avatar-width: 30px;
+  }
+  
+.avatar-lg {
+    --bs-avatar-width: 40px;
+  }
+
+.avatar-2lg {
+    --bs-avatar-width: 64px;
+  }
+  
+.avatar-xl {
+    --bs-avatar-width: 96px;
+  }
+  
+.avatar-xxl {
+    --bs-avatar-width: 128px;
+  }
+
+.avatar-huge {
+
+    --bs-avatar-width: 350px;
+
+}
+
+
+
+.button-nice {
+  color: #fff;
+  padding: 15px 25px;
+  border-radius: 100px;
+  background-color: #0a462d;
+  background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 87% at 26% 20%, rgba(255, 255, 255, 0.41) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 2px 19px 31px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  font-size: 16px;
+
+  border: 0;
+
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+  cursor: pointer;
+}
+
+
+.button-nice2 {
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 100px;
+    background-color: #0a462d;
+    background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 87% at 26% 20%, rgba(255, 255, 255, 0.41) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
+    box-shadow: 2px 19px 31px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    font-size: 12px;
+    font-style: italic;
+  
+    border: 0;
+  
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  
+    cursor: pointer;
+  }
+
+
+.items-checkboxes div {
+
+    min-width: 130px;
+
+}
+
+
+.img-random {
+    width: 800px;
+    height: 600px;
+  }
+
+.img-cards{
+
+  width: 250px;
+  height: 200px;
+
+}
+
+
+
+.paginator-text{
+
+  font-family:cursive;
+  color: #0a462d;
+  font-size: large;
+}
+
+
+.text-muted{
+
+  font-family: cursive;
+  color: #0a462d;
+  font-size:large;
+}
+
+.text-protection{
+
+  font-family: cursive;
+  color: #0a462d;
+  font-size:xx-large;
+}
+
+.list-item{
+
+  font-family: serif;
+  font-style: italic;
+  font-size:medium;
+}
+
+
+
+.custom-tooltip {
+  --bs-tooltip-bg: var(--bd-violet-bg);
+  --bs-tooltip-color: var(--bs-white);
+}
+
+
+div.tooltip-inner {
+  max-width: 500px;
+  background-color: #013d31;
+  font-family:monospace;
+}
+

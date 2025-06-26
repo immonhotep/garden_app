@@ -1,0 +1,44 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+{% if contact_messages %}
+<main role="main" class="container">
+  <div class="my-3 p-3 bg-white rounded box-shadow">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Contact messages</h6>
+    {% for message in contact_messages %}
+    <div class="text-muted pt-3">
+      <p class="pb-3 mb-0 small border-bottom border-gray">
+        <strong class="d-block text-gray-dark">{{message.first_name}} {{message.last_name}}</strong>
+          <i class="fa-solid fa-envelope fa-2xs"></i> Email: {{message.email}}</br>
+          <i class="fa-solid fa-phone fa-2xs"></i> Phone: {{message.phone}}</br>
+          <i class="fa-solid fa-calendar fa-2xs"></i> {{message.date}}</br>
+       <b> {{message.message}}</b>
+      </p>
+    </div>
+    {% endfor %}
+
+    <small class="d-block text-right mt-3">
+     {% if is_paginated %}
+            <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center my-4">
+                {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{page_obj.previous_page_number}}">Previous</a></li>
+                {% endif%}
+                {% for page  in page_obj.paginator.page_range %}
+                <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{page}}">{{page}}</a></li>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{page_obj.next_page_number}}">Next</a></li>
+                {% endif %}
+            </ul>
+            </nav>
+    {% endif %}   
+    </small>
+  </div>
+</main>
+{% endif %}
+
+
+
+
+{% endblock content %}

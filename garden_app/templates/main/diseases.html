@@ -1,0 +1,175 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+
+
+
+        <div class="container">
+             <title>{% block title %}Diseases{% endblock title %}</title>
+            <div class="row">
+                <!-- Blog entries-->
+                <div class="col-lg-8">
+                    <!-- Featured blog post-->
+                    {% if random_disease %}
+                    <div class="card mb-4">
+                        <div class="py-2 my-2 bg-light"  style="width:100%; text-align:center">
+                            <a href="#!"><img class="card-img-top img-random my-3 shadow-custom-random border border-2 border-dark" src="{{random_disease.imageURL}}" ></a>
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title">{{random_disease.name}}</h2>
+                            <p class="card-text">{{random_disease.description|truncatechars:300|safe}}</p>
+                            <a class="button-nice2 " href="{% url 'disease_detail' random_disease.slug  %}">Read more →</a>
+                            {% if request.user.is_superuser %}
+                                    <a class="btn btn-outline-warning" href="{% url 'update_disease' random_disease.slug %}"> 
+                                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                    </a>
+
+                                    <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal-{{random_disease.slug}}"> 
+                                        <i class="fa fa-ban fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    {% include "main/modals.html" %}
+
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                        
+                            <div class="row row-cols-1 row-cols-md-3 g-4 mx-1 mb-5">
+                                {% for disease in diseases %}
+                                <div class="card" style="max-width: 400px;">
+                                <img src="{{disease.imageURL}}" class="card-img-top thumbnail img-cards" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{disease.name}}</h5>
+                                    <p class="card-text">{{disease.description|truncatechars:80|safe}}</p>
+                                    <hr>
+                                    <a class="button-nice2 mx-1 " href="{% url 'disease_detail' disease.slug  %}">Read more →</a>
+                                    {% if request.user.is_superuser %}
+                                    <a class="btn btn-outline-warning" href="{% url 'update_disease' disease.slug %}"> 
+                                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                    </a>
+
+                                    <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal-{{disease.slug}}"> 
+                                        <i class="fa fa-ban fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                    {% include "main/modals.html" %}
+                                    {% endif %}
+
+                                </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+
+                {% if diseases.has_other_pages %}
+                    <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center my-4">
+                        {% if diseases.has_previous %}
+                        <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{diseases.previous_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">Previous</a></li>
+                        {% endif%}
+
+                        {% for num  in diseases.paginator.page_range %}
+                            {% if diseases.number == num %}
+                            <li class="page-item"><a class="page-link  mx-1 paginator-text"   href="">{{num}}</a></li>
+                            {% else %}
+                            <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{ num }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">{{num}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if diseases.has_next %}
+                        <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{diseases.next_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">Next</a></li>
+                        {% endif %}                            
+                    </ul>
+                    </nav>            
+                {% endif %}
+
+
+                </div> 
+                <!-- Side widgets-->
+                             <div class="col-lg-4">
+                    <!-- Search widget-->
+                    <form method="GET" action="{% url 'search_diseases' %}" >
+                    <div class="card mb-4">
+                        <div class="card-header">Search</div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                
+                                <input class="form-control" name="search" type="search" placeholder="Search for diseases..." />
+                                <button class="btn btn-primary" type="submit">Go!</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                    <!-- Categories widget-->
+                   {% if not request.GET.search %}
+                   {% if random_disease %}
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header"> These pesticides can be used against {{random_disease}} </div>
+                        <div class="card-body">
+
+                            <!--caroussel plants-->
+
+                            <div id="carouselInsecticides" class="carousel slide">
+                
+                                <div class="carousel-inner">
+                                    {% for item in pesticides %}
+                                    <div class="carousel-item text-center text-black mb-3 {% if forloop.first %} active {% endif %}">
+                                        
+                                        <a href="{% url 'pesticide_detail' item.slug %}"><img src="{{item.imageURL}}" class="rounded-start mb-3" height=100 width=100 data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{item.name}}"></a>
+                                                                      
+                                    </div>    
+                                    {% endfor %}                  
+                                </div>
+                                <button class="carousel-control-prev text-black" type="button" data-bs-target="#carouselInsecticides" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon text-black" aria-hidden="true"></span>
+                                    <i class="fa-solid fa-angle-left"></i></span>
+                                </button>
+                                <button class="carousel-control-next text-black" type="button" data-bs-target="#carouselInsecticides" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <i class="fa-solid fa-angle-right"></i></span>
+                                </button>
+                            </div>
+                            <!--caroussel plants end-->
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">{{ random_disease }} damages these plants</div>
+                        <div class="card-body">
+
+                            <!--caroussel diseases-->
+
+                            <div id="carouselFungicides" class="carousel slide">
+                
+                                <div class="carousel-inner">
+                                    {% for item in plants %}
+                                    <div class="carousel-item text-center text-black mb-3 {% if forloop.first %} active {% endif %}">   
+                                        <a href="{% url 'plant_detail' item.slug %}"><img src="{{item.imageURL}}" class="rounded-start mb-3" height=100 width=100 data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{item.name}}"  ></a>                                      
+                                    </div>    
+                                    {% endfor %}                  
+                                </div>
+                                <button class="carousel-control-prev text-black" type="button" data-bs-target="#carouselFungicides" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon text-black" aria-hidden="true"></span>
+                                    <i class="fa-solid fa-angle-left"></i></span>
+                                </button>
+                                <button class="carousel-control-next text-black" type="button" data-bs-target="#carouselFungicides" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <i class="fa-solid fa-angle-right"></i></span>
+                                </button>
+                            </div>
+                            <!--caroussel diseases end-->
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+                
+
+
+
+                
+            </div>
+        </div>
+
+
+{% endblock content %}

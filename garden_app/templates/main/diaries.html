@@ -1,0 +1,115 @@
+{% extends "main/base.html" %}
+{% block content %}
+
+<div class="container py-5">
+    <div class="card shadow-custom ">
+        <div class="card-body">
+       
+            {% if diaries %}
+            <div class="container w-25">
+                <form method="GET">
+                <select class="form-select form-select-sm my-5" id="select" name="select" >
+                        <option selected>Select year</option>
+                        {% for year in years %}
+                            <option value="{{year}}">{{year}}</option>
+                        {% endfor %}    
+                                         
+                </select>
+                </form>
+            </div>
+            
+             <h5 class="card-title text-center text-protection"><i class="fa-solid fa-book fa-2xs"></i> Plant diaries </h5>
+            
+
+            <div class="text-protection text-center my-5">
+                {{year}}
+            </div>
+            {% else %}
+                <h5 class="card-title text-center text-protection">You have no Diaries</h5>
+            {% endif %}
+
+            <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Sowing</th>
+                <th scope="col">Harvesting</th>
+                <th scope="col">Note</th>
+                <th scope="col">Plants</th>
+                <th scope="col">Options</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for diary in diaries %}
+                <tr>
+                <th scope="row">{{diary.sowing}}</th>
+                <td>{{diary.harvesting}}</td>
+                <td data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="{{diary.note|safe}}" >{{diary.note|truncatechars:20|safe}}</td>
+                <td>
+                <div class="avatar-stack">
+                     {% for plant in diary.plants.all %}
+                        <a href="{% url  'plant_detail' plant.slug %}"> <img class="avatar avatar-xl  rounded-0" src="{{plant.imageURL}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{plant.name}}" ></a>
+                    {% endfor %}
+                </div>
+                </td>
+
+                <td>
+                <a class="btn btn-outline-warning" href="{% url 'update_diary' diary.pk %}"> 
+                    <i class="fa fa-pencil fa-sm" aria-hidden="true"></i>
+                </a>
+
+                <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal-{{diary.pk}}"> 
+                    <i class="fa fa-ban fa-sm" aria-hidden="true"></i>
+                </button>
+                {% include "main/modals.html" %}
+
+                </td>
+
+
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+
+     {% if diaries.has_other_pages %}
+                    <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center my-4">
+                        {% if diaries.has_previous %}
+                        <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{diaries.previous_page_number }}{% if request.GET.select %}&select={{request.GET.select}}{% endif %}">Previous</a></li>
+                        {% endif%}
+
+                        {% for num  in diaries.paginator.page_range %}
+                            {% if diaries.number == num %}
+                            <li class="page-item"><a class="page-link  mx-1 paginator-text"   href="">{{num}}</a></li>
+                            {% else %}
+                            <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{ num }}{% if request.GET.select %}&select={{request.GET.select}}{% endif %}">{{num}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if diaries.has_next %}
+                        <li class="page-item"><a class="page-link  mx-1 paginator-text"  href="?page={{diaries.next_page_number }}{% if request.GET.select %}&select={{request.GET.select}}{% endif %}">Next</a></li>
+                        {% endif %}                            
+                    </ul>
+                    </nav>            
+                {% endif %}
+
+
+
+
+</div>
+</div>
+
+
+ <script type="text/javascript">
+  jQuery(function() {
+    jQuery('#select').change(function() {
+        this.form.submit();
+    });
+});
+</script>
+
+
+
+{% endblock content %}
+

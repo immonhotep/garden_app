@@ -1,0 +1,76 @@
+ 
+       <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+            <div class="container">
+                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 auth-class">
+                        {% if request.user.is_authenticated %} 
+                        <form method="POST" action="{% url 'user_signout' %}">
+                        {% csrf_token %}                     
+                        <li class="nav-item "><button class="nav-link btn btn-lg" ><i class="fa fa-sign-out" aria-hidden="true"></i> Sign out</button></li>
+                        </form>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'user_signup' %}"><i class="fa-solid fa-user-plus"></i> Sign up</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'user_signin' %}"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign in</a></li>
+                        {% endif %}
+                 </ul>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item dropdown">
+                        <a id="colorized-bgrnd" class="nav-link dropdown-toggle mx-1" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-list"></i> Plant by Categories
+                        </a>
+                           <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            {% for key,value in plant_cat_dict.items %}           
+                                <li class="list-item"><a class="dropdown-item text-success" href="{% url 'plant_category' key  %}"><i class="fa-solid {{value.0}} text-success"></i> {{key}}({{value.1}})</a></li>
+                            {% endfor %}        
+                        </ul>
+                   
+                        </li>
+
+
+
+
+
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fa-solid fa-seedling"></i> Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'list_diseases' %}"><i class="fa-solid fa-bug"></i> Diseases</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'list_pesticides' %}"><i class="fa-solid fa-flask"></i> Pesticides</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'about'  %}"><i class="fa-solid fa-circle-info"></i> About</a></li>
+                        
+                       
+                        {% if request.user.is_superuser %}
+                        <li class="nav-item dropdown">
+                        <a id="colorized-bgrnd" class="nav-link dropdown-toggle mx-1" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-user-tie"></i> Manage
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" href="{% url 'create_plant' %}"><i class="fa-solid fa-seedling"></i> <b class="badge bg-success"> Add</b> plant</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'create_disease' %}"><i class="fa-solid fa-bug"></i> <b class="badge bg-danger"> Add</b> Disease</a></li>
+                            <li><a class="dropdown-item" href="{% url 'create_pesticide' %}"><i class="fa-solid fa-flask"></i> <b class="badge bg-primary"> Add</b> Pesticide</a></li>
+                            <hr>
+                            <h6 class="text-center text-muted">Site management</h6>
+                            <li><a class="dropdown-item" href="{% url 'update_about' %}"><i class="fa-solid fa-circle-info"></i> <b class="badge bg-secondary">Update</b> About page content</a></li>
+                            <li><a class="dropdown-item" href="{% url 'list_contact_messages' %}"><i class="fa-solid fa-list"></i> <b class="badge bg-secondary">List</b> Contact messages</a></li>
+                            <li><a class="dropdown-item" href="{% url 'users' %}"><i class="fa-solid fa-users"></i> <b class="badge bg-secondary">List</b> Users</a></li>
+                        </ul>
+                        </li>
+                        {% endif %}
+          
+                    </ul>
+                    
+
+                    
+                </div>
+            
+            </div>
+            {% if request.user.is_authenticated %}
+            <div class="me-5">
+                <a href="{% url 'user_profile' %}">
+                <img class="avatar" src="{{request.user.userprofile.imageURL}}" />
+                </a>
+            </div>
+            {% endif %}
+
+
+        </nav>

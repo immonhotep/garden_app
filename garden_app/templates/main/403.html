@@ -1,0 +1,12 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+ <title>{% block title %}403{% endblock title %}</title>
+
+<div class="h-100 d-flex align-items-center justify-content-center py-5 my-5 text-white text-center">
+  <div>
+    <p><i class="fa fa-exclamation-triangle fa-5x my-2"></i><br/>Forbidden</p>
+  </div>
+</div>
+
+{% endblock content %}

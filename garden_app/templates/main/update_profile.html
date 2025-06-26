@@ -1,0 +1,44 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<title>{% block title %}{{request.user}} profile{% endblock title %}</title>
+<div class="container-xl px-4 mt-4 my-5 py-5">
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0 shadow-custom">
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    <img class="avatar avatar-huge  rounded-circle mb-2" src="{{request.user.userprofile.imageURL}}" >       
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card mb-4 shadow-custom">
+                <div class="card-header">Account Details</div>
+                
+                <div class="card-body">
+                
+                    <form method="POST" action="{% url 'user_profile' %}" enctype="multipart/form-data">   
+                    {% csrf_token %}   
+                       {{ user_form|crispy }}
+                       {{ profile_form|crispy }}
+                       {{ profile_form.media }}
+                  
+                       <button class="button-nice my-2" role="submit">submit</button>
+                       <a href="{% url 'password_change' %}" class="button-nice my-2" role="submit">Change password</a>
+                       <a class="button-nice"  href="javascript:history.back()" class="btn btn-outline-primary my-2">back</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content%}
+
+
+
+
