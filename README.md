@@ -99,35 +99,35 @@ API DETAIL:
 
 INSTALLED PACKAGES:
 
-aiosmtpd==1.4.6
-annotated-types==0.7.0
-asgiref==3.8.1
-atpublic==6.0.1
-attrs==25.3.0
-beautifulsoup4==4.13.4
-crispy-bootstrap5==2025.4
-Django==4.2.20
-django-bootstrap-datepicker-plus==5.0.5
-django-bootstrap-v5==1.0.11
-django-bootstrap5==25.1
-django-crispy-forms==2.4
-django-recaptcha==4.1.0
-django-resized==1.0.3
-django-tinymce==4.1.0
-djangorestframework==3.16.0
-djangorestframework_simplejwt==5.5.0
-drf-redesign==0.5.1
-fontawesomefree==6.6.0
-pillow==11.2.1
-pydantic==2.11.5
-pydantic_core==2.33.2
-PyJWT==2.9.0
-PyYAML==6.0.2
-six==1.17.0
-soupsieve==2.7
-sqlparse==0.5.3
-typing-inspection==0.4.1
-typing_extensions==4.13.2
+- aiosmtpd==1.4.6
+- annotated-types==0.7.0
+- asgiref==3.8.1
+- atpublic==6.0.1
+- attrs==25.3.0
+- beautifulsoup4==4.13.4
+- crispy-bootstrap5==2025.4
+- Django==4.2.20
+- django-bootstrap-datepicker-plus==5.0.5
+- django-bootstrap-v5==1.0.11
+- django-bootstrap5==25.1
+- django-crispy-forms==2.4
+- django-recaptcha==4.1.0
+- django-resized==1.0.3
+- django-tinymce==4.1.0
+- djangorestframework==3.16.0
+- djangorestframework_simplejwt==5.5.0
+- drf-redesign==0.5.1
+- fontawesomefree==6.6.0
+- pillow==11.2.1
+- pydantic==2.11.5
+- pydantic_core==2.33.2
+- PyJWT==2.9.0
+- PyYAML==6.0.2
+- six==1.17.0
+- soupsieve==2.7
+- sqlparse==0.5.3
+- typing-inspection==0.4.1
+- typing_extensions==4.13.2
 
 
 NOTES:
@@ -154,6 +154,15 @@ INSTALL:
 - Create the database:( python3 manage.py makemigrations and then python3 manage.py migrate )
 - Create a superuser ( python3 manage.py createsuperuser )
 - Run the application ( python3 manage.py runserver )
+
+
+
+  Example sample picture from home page
+
+
+  ![sample home](https://github.com/user-attachments/assets/15ea9310-1966-4214-a914-b464a6c4ec4e)
+
+
 
 
 
